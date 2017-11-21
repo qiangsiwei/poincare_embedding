@@ -7,14 +7,14 @@ The difference of results between implementations is due to the different sampli
 
 Results:
 
-NumPy implementation (num_iter=100)
+NumPy implementation
 
 ![https://github.com/qiangsiwei/poincare_embedding/blob/master/data/mammal_numpy.png](https://github.com/qiangsiwei/poincare_embedding/blob/master/data/mammal_numpy.png)
 
-PyTorch implementation (num_iter=100)
+PyTorch implementation
 
 ![https://github.com/qiangsiwei/poincare_embedding/blob/master/data/mammal_torch.png](https://github.com/qiangsiwei/poincare_embedding/blob/master/data/mammal_torch.png)
 
-TensorFlow implementation (num_iter=100)
+TensorFlow implementation
 
-![https://github.com/qiangsiwei/poincare_embedding/blob/master/data/mammal_torch.png](https://github.com/qiangsiwei/poincare_embedding/blob/master/data/mammal_torch.png)
+![https://github.com/qiangsiwei/poincare_embedding/blob/master/data/mammal_tensor.png](https://github.com/qiangsiwei/poincare_embedding/blob/master/data/mammal_tensor.png)
