@@ -17,7 +17,7 @@ class PoincareTorch(PoincareBase):
 	def acosh(self,x):
 		return torch.log(x+torch.sqrt(x**2-1))
 	def dists(self,u,v):
-		uu, uv, vv= u.norm(dim=1)**2, u.mm(v.t()), v.norm(dim=1)**2
+		uu, uv, vv = u.norm(dim=1)**2, u.mm(v.t()), v.norm(dim=1)**2
 		alpha, beta = (1-uu).clamp(min=self.eps), (1-vv).clamp(min=self.eps)
 		gamma = (1+2*(uu+vv-2*uv)/alpha/beta).clamp(min=1+self.eps)
 		return self.acosh(gamma)

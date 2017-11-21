@@ -28,23 +28,25 @@ class PoincareNumpy(PoincareBase):
 		gdv = cv*((uu-2*uv+1)/beta*v-u)
 		return gdu, gdv
 	def train(self): # BOTH SAMPLING
-		lp = range(len(self.pdict))
+		pdata, pdict, pembs = self.pdata, self.pdict, self.pembs
+		def neg_sampling(i1,i2,lp=range(len(pdict))):
+			d,env = self.dists(pembs[i1],pembs[i2])
+			yield i1,i2,math.exp(-d),env
+			for _ in xrange(self.num_negs):
+				s1,s2 = random.choice(lp),random.choice(lp)
+				d,env = self.dists(pembs[s1],pembs[s2])
+				yield s1,s2,math.exp(-d),env
 		for epoch in xrange(self.num_iter):
-			print epoch; random.shuffle(self.pdata)
+			print epoch; random.shuffle(pdata)
 			r = 1.*epoch/self.num_iter; lr = (1-r)*self.lr1+r*self.lr2
-			for w1,w2 in self.pdata:
-				i1,i2 = self.pdict[w1],self.pdict[w2]
-				d,env = self.dists(self.pembs[i1],self.pembs[i2])
-				exp_neg_dists = [(i1,i2,math.exp(-d),env)]
-				for _ in xrange(self.num_negs):
-					s1,s2 = random.choice(lp),random.choice(lp)
-					d,env = self.dists(self.pembs[s1],self.pembs[s2])
-					exp_neg_dists.append((s1,s2,math.exp(-d),env))
+			for w1,w2 in pdata:
+				i1,i2 = pdict[w1],pdict[w2]
+				exp_neg_dists = list(neg_sampling(i1,i2))
 				Z = sum(map(operator.itemgetter(2),exp_neg_dists))
 				for i,(i1,i2,d,env) in enumerate(exp_neg_dists):
 					gl,gr = self.backward(1.*(i==0)-d/Z,env)
-					if gl is not None: self.pembs[i1] = self.add_clip(-lr,self.pembs[i1],gl)
-					if gr is not None: self.pembs[i2] = self.add_clip(-lr,self.pembs[i2],gr)
+					if gl is not None: pembs[i1] = self.add_clip(-lr,pembs[i1],gl)
+					if gr is not None: pembs[i2] = self.add_clip(-lr,pembs[i2],gr)
 		pplot(self.pdict,self.pembs,'mammal_numpy')
 
 if __name__ == '__main__':

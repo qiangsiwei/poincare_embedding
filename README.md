@@ -14,3 +14,7 @@ NumPy implementation (num_iter=100)
 PyTorch implementation (num_iter=100)
 
 ![https://github.com/qiangsiwei/poincare_embedding/blob/master/data/mammal_torch.png](https://github.com/qiangsiwei/poincare_embedding/blob/master/data/mammal_torch.png)
+
+TensorFlow implementation (num_iter=100)
+
+![https://github.com/qiangsiwei/poincare_embedding/blob/master/data/mammal_torch.png](https://github.com/qiangsiwei/poincare_embedding/blob/master/data/mammal_torch.png)
